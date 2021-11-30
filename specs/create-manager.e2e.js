@@ -1,7 +1,9 @@
 describe("Create manager", function () {
   function assert(actual, expected, field) {
     if (!(actual == expected)) {
-      throw new Error(`Error. The field ${field} doesn't match this field at the form Create manager`);
+      throw new Error(
+        `Error. The field ${field} doesn't match this field at the form Create manager`
+      );
     }
   }
 
@@ -23,7 +25,7 @@ describe("Create manager", function () {
     if (titlePortal !== "Report portal") {
       throw new Error("You don`t login into system!!!");
     }
-   // add the first user(manager)
+    // add the first user(manager)
     await $("a[href='./formManager.html']").click();
     const titleUserForm = await browser.getTitle();
     if (titleUserForm !== "User form") {
@@ -57,7 +59,9 @@ describe("Create manager", function () {
     await $("a[href='./formManager.html']").click();
     const titleUserForm2 = await browser.getTitle();
     if (titleUserForm2 !== "User form") {
-      throw new Error("You don`t open Manager form page, creating 2-nd manager!");
+      throw new Error(
+        "You don`t open Manager form page, creating 2-nd manager!"
+      );
     }
     const email2 = "userManager222@company.com";
     const password2 = "1452qw";
@@ -82,47 +86,85 @@ describe("Create manager", function () {
     await $("input[name='city']").addValue(city2);
     await $("#autoComplete_result_1").click();
     await $("button[type='submit']").click();
- 
+
     //verifying the fist user's data
-    const actual1Adress1 = await $(`//div[text()='${email1}']/following-sibling::div[@tabulator-field='address1']`).getText();
-    const actual1Adress2 = await $(`//div[text()='${email1}']/following-sibling::div[@tabulator-field='address2']`).getText();
-    const actual1Role = await $(`//div[text()='${email1}']/following-sibling::div[@tabulator-field='role']`).getText();
-    const actual1City = await $(`//div[text()='${email1}']/following-sibling::div[@tabulator-field='city']`).getText();
-    const actual1State = await $(`//div[text()='${email1}']/following-sibling::div[@tabulator-field='state']`).getText();
-    const actual1Zip = await $(`//div[text()='${email1}']/following-sibling::div[@tabulator-field='zip']`).getText();
-    const actual1Description = await $(`//div[text()='${email1}']/following-sibling::div[@tabulator-field='description']`).getText();
-    const actual1ManagerType = await $(`//div[text()='${email1}']/following-sibling::div[@tabulator-field='manager-type']`).getText();
-    const actual1WaitSupervisor = await $(`//div[text()='${email1}']/following-sibling::div[@tabulator-field='wait-supervisor']`).getText();
-    const actual1DemoBalance = await $(`//div[text()='${email1}']/following-sibling::div[@tabulator-field='demo-balance']`).getText();
-    assert(actual1Adress1,address11, "Address1");
-    assert(actual1Adress2,address21, "Address2");
+    const actual1Adress1 = await $(
+      `//div[text()='${email1}']/following-sibling::div[@tabulator-field='address1']`
+    ).getText();
+    const actual1Adress2 = await $(
+      `//div[text()='${email1}']/following-sibling::div[@tabulator-field='address2']`
+    ).getText();
+    const actual1Role = await $(
+      `//div[text()='${email1}']/following-sibling::div[@tabulator-field='role']`
+    ).getText();
+    const actual1City = await $(
+      `//div[text()='${email1}']/following-sibling::div[@tabulator-field='city']`
+    ).getText();
+    const actual1State = await $(
+      `//div[text()='${email1}']/following-sibling::div[@tabulator-field='state']`
+    ).getText();
+    const actual1Zip = await $(
+      `//div[text()='${email1}']/following-sibling::div[@tabulator-field='zip']`
+    ).getText();
+    const actual1Description = await $(
+      `//div[text()='${email1}']/following-sibling::div[@tabulator-field='description']`
+    ).getText();
+    const actual1ManagerType = await $(
+      `//div[text()='${email1}']/following-sibling::div[@tabulator-field='manager-type']`
+    ).getText();
+    const actual1WaitSupervisor = await $(
+      `//div[text()='${email1}']/following-sibling::div[@tabulator-field='wait-supervisor']`
+    ).getText();
+    const actual1DemoBalance = await $(
+      `//div[text()='${email1}']/following-sibling::div[@tabulator-field='demo-balance']`
+    ).getText();
+    assert(actual1Adress1, address11, "Address1");
+    assert(actual1Adress2, address21, "Address2");
     assert(actual1Role, "manager", "User_role");
-    assert(actual1City,city1, "City");
-    assert(actual1State.toUpperCase,state1.slice(0,2).toUpperCase, "State");
-    assert(actual1Zip,zip1, "Zip");
-    assert(actual1Description,description1, "Description");
+    assert(actual1City, city1, "City");
+    assert(actual1State.toUpperCase, state1.slice(0, 2).toUpperCase, "State");
+    assert(actual1Zip, zip1, "Zip");
+    assert(actual1Description, description1, "Description");
     assert(actual1ManagerType, "country", "Manager_type");
     assert(actual1WaitSupervisor, "on", "Wait_for_supervisor");
     assert(actual1DemoBalance, "on", "Demo_balance");
 
-  //verifying the second user's data
-    const actual2Adress1 = await $(`//div[text()='${email2}']/following-sibling::div[@tabulator-field='address1']`).getText();
-    const actual2Adress2 = await $(`//div[text()='${email2}']/following-sibling::div[@tabulator-field='address2']`).getText();
-    const actual2City = await $(`//div[text()='${email2}']/following-sibling::div[@tabulator-field='city']`).getText();
-    const actual2State = await $(`//div[text()='${email2}']/following-sibling::div[@tabulator-field='state']`).getText();
-    const actual2Zip = await $(`//div[text()='${email2}']/following-sibling::div[@tabulator-field='zip']`).getText();
-    const actual2Description = await $(`//div[text()='${email2}']/following-sibling::div[@tabulator-field='description']`).getText();
-    const actual2ManagerType = await $(`//div[text()='${email2}']/following-sibling::div[@tabulator-field='manager-type']`).getText();
-    const actual2WaitSupervisor = await $(`//div[text()='${email2}']/following-sibling::div[@tabulator-field='wait-supervisor']`).getText();
-    const actual2DemoBalance = await $(`//div[text()='${email2}']/following-sibling::div[@tabulator-field='demo-balance']`).getText();
-    assert(actual2Adress1,address12, "Address1");
-    assert(actual2Adress2,address22, "Address2");
-    assert(actual2City,city2, "City");
-    assert(actual2State.toUpperCase, state2.slice(0,2).toUpperCase, "State");
-    assert(actual2Zip,zip2, "Zip");
-    assert(actual2Description,description2, "Description");
+    //verifying the second user's data
+    const actual2Adress1 = await $(
+      `//div[text()='${email2}']/following-sibling::div[@tabulator-field='address1']`
+    ).getText();
+    const actual2Adress2 = await $(
+      `//div[text()='${email2}']/following-sibling::div[@tabulator-field='address2']`
+    ).getText();
+    const actual2City = await $(
+      `//div[text()='${email2}']/following-sibling::div[@tabulator-field='city']`
+    ).getText();
+    const actual2State = await $(
+      `//div[text()='${email2}']/following-sibling::div[@tabulator-field='state']`
+    ).getText();
+    const actual2Zip = await $(
+      `//div[text()='${email2}']/following-sibling::div[@tabulator-field='zip']`
+    ).getText();
+    const actual2Description = await $(
+      `//div[text()='${email2}']/following-sibling::div[@tabulator-field='description']`
+    ).getText();
+    const actual2ManagerType = await $(
+      `//div[text()='${email2}']/following-sibling::div[@tabulator-field='manager-type']`
+    ).getText();
+    const actual2WaitSupervisor = await $(
+      `//div[text()='${email2}']/following-sibling::div[@tabulator-field='wait-supervisor']`
+    ).getText();
+    const actual2DemoBalance = await $(
+      `//div[text()='${email2}']/following-sibling::div[@tabulator-field='demo-balance']`
+    ).getText();
+    assert(actual2Adress1, address12, "Address1");
+    assert(actual2Adress2, address22, "Address2");
+    assert(actual2City, city2, "City");
+    assert(actual2State.toUpperCase, state2.slice(0, 2).toUpperCase, "State");
+    assert(actual2Zip, zip2, "Zip");
+    assert(actual2Description, description2, "Description");
     assert(actual2ManagerType, "region", "Manager_type");
     assert(actual2WaitSupervisor, "on", "Wait_for_supervisor");
-    assert(actual2DemoBalance, "on", "Demo_balance");
+    assert(actual2DemoBalance, "fof", "Demo_balance");
   });
 });
