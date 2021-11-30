@@ -6,6 +6,11 @@ exports.config = {
   automationProtocol: "webdriver",
   maxInstances: 10,
   capabilities: [
+ //   {
+ //       maxInstances: 5,
+ //       browserName: 'chrome',
+ //       acceptInsecureCerts: true
+ //   }
     {
       "bstack:options": {
         os: "Windows",
@@ -56,8 +61,8 @@ exports.config = {
   connectionRetryCount: 3,
   user: "vitaligrodno_wGamTb",
   key: "5n4yGkUqWhiLHKq5NqgP",
-  services: ["chromedriver"],
-  //services: ["browserstack"],
+  //services: ["chromedriver"],
+  services: ["browserstack"],
   framework: "mocha",
   //
   // The number of times to retry the entire specfile when it fails as a whole
@@ -93,8 +98,10 @@ exports.config = {
    * @param {Object} config wdio configuration object
    * @param {Array.<Object>} capabilities list of capabilities details
    */
-  // onPrepare: function (config, capabilities) {
-  // },
+   onPrepare: function (config, capabilities) {
+    const rimraf = require('rimraf');
+    rimraf('./screenshots/*', function () {});
+   },
   /**
    * Gets executed before a worker process is spawned and can be used to initialise specific service
    * for that worker as well as modify runtime environments in an async fashion.
@@ -174,7 +181,8 @@ exports.config = {
     if (!passed) {
       await browser.saveScreenshot(
         // `./screenshots/${test.title}test.png`
-        `./screenshots/${new Date() / 1}_${test.title.replace(/\s/g, "_")}.png`
+        //`./screenshots/${(new Date()).toLocaleDateString().replace(/[.]/g,"_")}_${(new Date()).toTimeString().slice(0,8).replace(/:/g,"_")}_${test.title.replace(/\s/g, "_")}.png`
+        `./screenshots/${(new Date()).toLocaleString().replace(/[.,:\s]/g,"_")}_${test.title}.png`
       );
     }
   },
