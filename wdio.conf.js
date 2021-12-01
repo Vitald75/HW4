@@ -6,11 +6,11 @@ exports.config = {
   automationProtocol: "webdriver",
   maxInstances: 10,
   capabilities: [
- //   {
- //       maxInstances: 5,
- //       browserName: 'chrome',
- //       acceptInsecureCerts: true
- //   }
+    //   {
+    //       maxInstances: 5,
+    //       browserName: 'chrome',
+    //       acceptInsecureCerts: true
+    //   }
     {
       "bstack:options": {
         os: "Windows",
@@ -23,29 +23,29 @@ exports.config = {
       browserName: "Firefox",
       browserVersion: "latest",
     },
-    //   {
-    //     "bstack:options": {
-    //       os: "OS X",
-    //       osVersion: "Monterey",
-    //      local: "false",
-    //       seleniumVersion: "3.5.2",
-    //       userName: "vitaligrodno_wGamTb",
-    //       accessKey: "5n4yGkUqWhiLHKq5NqgP",
-    //     },
-    //     browserName: "Edge",
-    //     browserVersion: "latest",
-    //   },
-    //   {
-    //     "bstack:options": {
-    //       osVersion: "15",
-    //       deviceName: "iPhone XS",
-    //       realMobile: "true",
-    //       local: "false",
-    //       userName: "vitaligrodno_wGamTb",
-    //       accessKey: "5n4yGkUqWhiLHKq5NqgP",
-    //     },
-    //     browserName: "iPhone",
-    //   },
+    {
+      "bstack:options": {
+        os: "OS X",
+        osVersion: "Monterey",
+        local: "false",
+        seleniumVersion: "3.5.2",
+        userName: "vitaligrodno_wGamTb",
+        accessKey: "5n4yGkUqWhiLHKq5NqgP",
+      },
+      browserName: "Edge",
+      browserVersion: "latest",
+    },
+    {
+      "bstack:options": {
+        osVersion: "15",
+        deviceName: "iPhone XS",
+        realMobile: "true",
+        local: "false",
+        userName: "vitaligrodno_wGamTb",
+        accessKey: "5n4yGkUqWhiLHKq5NqgP",
+      },
+      browserName: "iPhone",
+    },
     //        {
     //        maxInstances: 5,
     //        browserName: 'chrome',
@@ -98,10 +98,10 @@ exports.config = {
    * @param {Object} config wdio configuration object
    * @param {Array.<Object>} capabilities list of capabilities details
    */
-   onPrepare: function (config, capabilities) {
-    const rimraf = require('rimraf');
-    rimraf('./screenshots/*', function () {});
-   },
+  onPrepare: function (config, capabilities) {
+    const rimraf = require("rimraf");
+    rimraf("./screenshots/*", function () {});
+  },
   /**
    * Gets executed before a worker process is spawned and can be used to initialise specific service
    * for that worker as well as modify runtime environments in an async fashion.
@@ -182,7 +182,9 @@ exports.config = {
       await browser.saveScreenshot(
         // `./screenshots/${test.title}test.png`
         //`./screenshots/${(new Date()).toLocaleDateString().replace(/[.]/g,"_")}_${(new Date()).toTimeString().slice(0,8).replace(/:/g,"_")}_${test.title.replace(/\s/g, "_")}.png`
-        `./screenshots/${(new Date()).toLocaleString().replace(/[.,:\s]/g,"_")}_${test.title}.png`
+        `./screenshots/${new Date()
+          .toLocaleString()
+          .replace(/[.,:\s]/g, "_")}_${test.title}.png`
       );
     }
   },
