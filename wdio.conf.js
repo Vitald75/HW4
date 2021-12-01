@@ -6,12 +6,12 @@ exports.config = {
   automationProtocol: "webdriver",
   maxInstances: 10,
   capabilities: [
-    //   {
-    //       maxInstances: 5,
-    //       browserName: 'chrome',
-    //       acceptInsecureCerts: true
-    //   }
-    {
+       {
+           maxInstances: 5,
+           browserName: 'chrome',
+           acceptInsecureCerts: true
+       }
+    /* {
       "bstack:options": {
         os: "Windows",
         osVersion: "10",
@@ -45,7 +45,7 @@ exports.config = {
         accessKey: "5n4yGkUqWhiLHKq5NqgP",
       },
       browserName: "iPhone",
-    },
+    }, */
     //        {
     //        maxInstances: 5,
     //        browserName: 'chrome',
@@ -61,8 +61,8 @@ exports.config = {
   connectionRetryCount: 3,
   user: "vitaligrodno_wGamTb",
   key: "5n4yGkUqWhiLHKq5NqgP",
-  //services: ["chromedriver"],
-  services: ["browserstack"],
+  services: ["chromedriver"],
+  //services: ["browserstack"],
   framework: "mocha",
   //
   // The number of times to retry the entire specfile when it fails as a whole
