@@ -6,12 +6,12 @@ exports.config = {
   automationProtocol: "webdriver",
   maxInstances: 10,
   capabilities: [
-       {
+     /*   {
            maxInstances: 5,
            browserName: 'chrome',
            acceptInsecureCerts: true
-       }
-    /* {
+       } */
+    {
       "bstack:options": {
         os: "Windows",
         osVersion: "10",
@@ -45,12 +45,7 @@ exports.config = {
         accessKey: "5n4yGkUqWhiLHKq5NqgP",
       },
       browserName: "iPhone",
-    }, */
-    //        {
-    //        maxInstances: 5,
-    //        browserName: 'chrome',
-    //        acceptInsecureCerts: true
-    //    }
+    },
   ],
   // Level of logging verbosity: trace | debug | info | warn | error | silent
   logLevel: "warn",
@@ -61,8 +56,8 @@ exports.config = {
   connectionRetryCount: 3,
   user: "vitaligrodno_wGamTb",
   key: "5n4yGkUqWhiLHKq5NqgP",
-  services: ["chromedriver"],
-  //services: ["browserstack"],
+  //services: ["chromedriver"],
+  services: ["browserstack"],
   framework: "mocha",
   //
   // The number of times to retry the entire specfile when it fails as a whole
@@ -180,11 +175,9 @@ exports.config = {
   ) {
     if (!passed) {
       await browser.saveScreenshot(
-        // `./screenshots/${test.title}test.png`
-        //`./screenshots/${(new Date()).toLocaleDateString().replace(/[.]/g,"_")}_${(new Date()).toTimeString().slice(0,8).replace(/:/g,"_")}_${test.title.replace(/\s/g, "_")}.png`
-        `./screenshots/${new Date()
+          `./screenshots/${new Date()
           .toLocaleString()
-          .replace(/[.,:\s]/g, "_")}_${test.title}.png`
+          .replace(/[.,/:\s]/g, "_")}_${test.title}.png`
       );
     }
   },

@@ -12,22 +12,19 @@ describe("Buy currency", function () {
     });
   });
 
-  it("Should enter 1000 in field currency, click buy, check result amount", async function () {
+  it("Should enter 1234 in field currency, click buy, check result amount", async function () {
     async function inputOneNumber(value, position) {
       await inputSum.addValue(value);
       await browser.waitUntil(
         async () => {
           const data = await $("#database").getHTML(false);
-          console.log (data);
-          //const newdata = data.slice(data.indexOf("["), data.indexOf("]") + 1);
-          const newdata = data;        
-          const dataJson = JSON.parse(newdata);
+          const dataJson = JSON.parse(data);
           return dataJson[position].num == value;
         },
         {
           timeout: 5000,
           interval: 300,
-          timeoutMsg: "The element is not in databaswe",
+          timeoutMsg: `The element ${value} is not in database`,
         }
       );
     }
