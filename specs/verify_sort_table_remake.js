@@ -67,10 +67,10 @@ async function verifyArrow(field) {
     const arrowBottomWidth = arrowBottomWidthCSS.value; 
     
     if (sortingType === "asc") {
-      expect("solid6px").toEqual(arrowBottomStyle + arrowBottomWidth, `Error with arrow on ascending sorting ${field}`);
+      expect(arrowBottomStyle + arrowBottomWidth).toEqual("solid6px");
     }
     else if (sortingType === "desc") {
-      expect("solid6px").toEqual(arrowTopStyle + arrowTopWidth, `Error with arrow on descending sorting ${field}`);
+      expect(arrowTopStyle + arrowTopWidth).toEqual("solid6px");
     } else {
       throw new Error("Error in determening sorting order");
     }
