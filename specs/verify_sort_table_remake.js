@@ -20,23 +20,12 @@ describe("Verify sorting at the table Week leaders", function () {
     }) 
   });
 
-  function verifySorting(arrayFromTable, sorting) {
-    const arraySorted = arrayFromTable
-      .map((x) => x)
-      .sort(function (a, b) {
-        if (a > b) {
-          return 1;
-        }
-        if (b > a) {
-          return -1;
-        }
-        return 0;
-      });
+  async function verifySorting(arrayFromTable, arraySorted, sorting) {
     const arraySortedReverse = arraySorted.map((x) => x).reverse();
     if (sorting === "asc") {
-      expect(arrayFromTable).toEqual(arraySorted);
+      await expect(arrayFromTable).toEqual(arraySorted);
     } else if (sorting === "desc") {
-      expect(arrayFromTable).toEqual(arraySortedReverse);
+      await expect(arrayFromTable).toEqual(arraySortedReverse);
     } else {
       throw new Error("Error in determening sorting order");
     }
@@ -49,11 +38,16 @@ describe("Verify sorting at the table Week leaders", function () {
     await $(`div[tabulator-field='${field}'][role='columnheader'] div.tabulator-col-content`).click();
     await browser.pause(500);
     const sortingType = await $(`div[tabulator-field='${field}'][role='columnheader']`).getAttribute("aria-sort");
-    expect(sortingType).toEqual("asc");
-    const arrayfromTable = await $$(`div[role='gridcell'][tabulator-field='${field}']`).map((x) => {
+    await expect(sortingType).toEqual("asc");
+    const arrayFromTable = await $$(`div[role='gridcell'][tabulator-field='${field}']`).map((x) => {
       return x.getText();
-    });  
-    verifySorting(arrayfromTable, 'asc');
+    }); 
+    const arraySorted = arrayFromTable
+    .map((x) => x)
+    .sort(function (a, b) {
+      return a - b;
+      }); 
+    await verifySorting(arrayFromTable, arraySorted, 'asc');
   });
 
   it("should click second time on Id header - descending", async function () {
@@ -62,10 +56,16 @@ describe("Verify sorting at the table Week leaders", function () {
     await browser.pause(500);
     const sortingType = await $(`div[tabulator-field='${field}'][role='columnheader']`).getAttribute("aria-sort");
     await expect(sortingType).toEqual("desc");
-    const arrayfromTable = await $$(`div[role='gridcell'][tabulator-field='${field}']`).map((x) => {
+
+    const arrayFromTable = await $$(`div[role='gridcell'][tabulator-field='${field}']`).map((x) => {
       return x.getText();
     });  
-    verifySorting(arrayfromTable, 'desc');
+    const arraySorted = arrayFromTable
+    .map((x) => x)
+    .sort(function (a, b) {
+      return a - b;
+      }); 
+    await verifySorting(arrayFromTable, arraySorted,'desc');
   });
 })
 
@@ -76,11 +76,23 @@ context("Should verify if sorting by field Name is correct", async function (){
     await $(`div[tabulator-field='${field}'][role='columnheader'] div.tabulator-col-content`).click();
     await browser.pause(500);
     const sortingType = await $(`div[tabulator-field='${field}'][role='columnheader']`).getAttribute("aria-sort");
-    expect(sortingType).toEqual("asc");
-    const arrayfromTable = await $$(`div[role='gridcell'][tabulator-field='${field}']`).map((x) => {
+    await expect(sortingType).toEqual("asc");
+
+    const arrayFromTable = await $$(`div[role='gridcell'][tabulator-field='${field}']`).map((x) => {
       return x.getText();
     });  
-    verifySorting(arrayfromTable, 'asc'); 
+    const arraySorted = arrayFromTable
+    .map((x) => x)
+    .sort(function (a, b) {
+      if (a > b) {
+        return 1;
+      }
+      if (b > a) {
+        return -1;
+      }
+      return 0;
+      });
+    await verifySorting(arrayFromTable, arraySorted, 'asc'); 
   });
 
   it("should click second time on Name header - descending", async function () {
@@ -88,12 +100,23 @@ context("Should verify if sorting by field Name is correct", async function (){
     await $(`div[tabulator-field='${field}'][role='columnheader'] div.tabulator-col-content`).click();
     await browser.pause(500);
     const sortingType = await $(`div[tabulator-field='${field}'][role='columnheader']`).getAttribute("aria-sort");
-    expect(sortingType).toEqual("desc");
+    await expect(sortingType).toEqual("desc");
 
-    const arrayfromTable = await $$(`div[role='gridcell'][tabulator-field='${field}']`).map((x) => {
+    const arrayFromTable = await $$(`div[role='gridcell'][tabulator-field='${field}']`).map((x) => {
       return x.getText();
     });  
-    verifySorting(arrayfromTable, 'desc');
+    const arraySorted = arrayFromTable
+    .map((x) => x)
+    .sort(function (a, b) {
+      if (a > b) {
+        return 1;
+      }
+      if (b > a) {
+        return -1;
+      }
+      return 0;
+      });
+    await verifySorting(arrayFromTable, arraySorted, 'desc'); 
   });
 })
 
@@ -104,11 +127,17 @@ context("Should verify if sorting by field Age is correct", async function (){
     await $(`div[tabulator-field='${field}'][role='columnheader'] div.tabulator-col-content`).click();
     await browser.pause(500);
     const sortingType = await $(`div[tabulator-field='${field}'][role='columnheader']`).getAttribute("aria-sort");
-    expect(sortingType).toEqual("asc");
-    const arrayfromTable = await $$(`div[role='gridcell'][tabulator-field='${field}']`).map((x) => {
+    await expect(sortingType).toEqual("asc");
+    
+    const arrayFromTable = await $$(`div[role='gridcell'][tabulator-field='${field}']`).map((x) => {
       return x.getText();
     });  
-    verifySorting(arrayfromTable, 'asc'); 
+     const arraySorted = arrayFromTable
+    .map((x) => x)
+    .sort(function (a, b) {
+      return a - b;
+      });  
+    await verifySorting(arrayFromTable, arraySorted,'asc');
   });
 
   it("should click second time on Age header descending", async function () {
@@ -116,11 +145,17 @@ context("Should verify if sorting by field Age is correct", async function (){
     await $(`div[tabulator-field='${field}'][role='columnheader'] div.tabulator-col-content`).click();
     await browser.pause(500);
     const sortingType = await $(`div[tabulator-field='${field}'][role='columnheader']`).getAttribute("aria-sort");
-    expect(sortingType).toEqual("desc");
-    const arrayfromTable = await $$(`div[role='gridcell'][tabulator-field='${field}']`).map((x) => {
+    await expect(sortingType).toEqual("desc");
+
+    const arrayFromTable = await $$(`div[role='gridcell'][tabulator-field='${field}']`).map((x) => {
       return x.getText();
     });  
-    verifySorting(arrayfromTable, 'desc');
+     const arraySorted = arrayFromTable
+    .map((x) => x)
+    .sort(function (a, b) {
+      return a - b;
+      }); 
+    await verifySorting(arrayFromTable, arraySorted, 'desc');
   });
 })
 })
