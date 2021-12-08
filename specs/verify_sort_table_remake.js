@@ -10,11 +10,14 @@ describe("Verify sorting at the table Week leaders", function () {
       reverse: true,
       timeout: 5000,
     });
-    
-    /* const titlePortal = await browser.getTitle();
+    const titlePortal = await browser.getTitle();
     if (titlePortal !== "Report portal") {
       throw new Error("You don`t login into system!!!");
-    } */
+    } 
+    await $("#example-table").waitForDisplayed ({
+      timeout: 1000,
+      timeoutMsg : "Table is not displayed"
+    }) 
   });
 
   async function verifySorting(field) {
@@ -58,11 +61,11 @@ async function verifyArrow(field) {
     const arrowTopWidthCSS = await arrowElement.getCSSProperty('borderTopWidth');
     const arrowBottomStyleCSS = await arrowElement.getCSSProperty('borderBottomStyle');
     const arrowBottomWidthCSS = await arrowElement.getCSSProperty('borderBottomWidth');
-    const arrowTopStyle = arrowTopStyleCSS.value; // 
-    const arrowTopWidth = arrowTopWidthCSS.value; // 
-    const arrowBottomStyle = arrowBottomStyleCSS.value; // solid
-    const arrowBottomWidth = arrowBottomWidthCSS.value; // 6px
-   
+    const arrowTopStyle = arrowTopStyleCSS.value; 
+    const arrowTopWidth = arrowTopWidthCSS.value; 
+    const arrowBottomStyle = arrowBottomStyleCSS.value; 
+    const arrowBottomWidth = arrowBottomWidthCSS.value; 
+    
     if (sortingType === "asc") {
       expect("solid6px").toEqual(arrowBottomStyle + arrowBottomWidth, `Error with arrow on ascending sorting ${field}`);
     }
@@ -73,12 +76,12 @@ async function verifyArrow(field) {
     }
 }
 
-
 context("Should verify if sorting by field Id is correct", async function (){
 
   it("should click on Id header first time", async function () {
     const field = "id";
     await $(`div[tabulator-field='${field}'][role='columnheader'] div.tabulator-col-content`).click();
+    await browser.pause(500);
     await verifyArrow(field);    
     await verifySorting (field);
   });
@@ -86,6 +89,7 @@ context("Should verify if sorting by field Id is correct", async function (){
   it("should click second time on IDd header", async function () {
     const field = "id";
     await $(`div[tabulator-field='${field}'][role='columnheader'] div.tabulator-col-content`).click();
+    await browser.pause(500);
     await verifyArrow(field);
     await verifySorting (field);
   });
@@ -96,6 +100,7 @@ context("Should verify if sorting by field Name is correct", async function (){
   it("should click on Name header first time", async function () {
     const field = "name";
     await $(`div[tabulator-field='${field}'][role='columnheader'] div.tabulator-col-content`).click();
+    await browser.pause(500);
     await verifyArrow(field);    
     await verifySorting (field);
   });
@@ -103,6 +108,7 @@ context("Should verify if sorting by field Name is correct", async function (){
   it("should click second time on Name header", async function () {
     const field = "name";
     await $(`div[tabulator-field='${field}'][role='columnheader'] div.tabulator-col-content`).click();
+    await browser.pause(500);
     await verifyArrow(field);
     await verifySorting (field);
   });
@@ -113,6 +119,7 @@ context("Should verify if sorting by field Age is correct", async function (){
   it("should click on Age header first time", async function () {
     const field = "age";
     await $(`div[tabulator-field='${field}'][role='columnheader'] div.tabulator-col-content`).click();
+    await browser.pause(500);
     await verifyArrow(field);    
     await verifySorting (field);
   });
@@ -120,8 +127,9 @@ context("Should verify if sorting by field Age is correct", async function (){
   it("should click second time on Age header", async function () {
     const field = "age";
     await $(`div[tabulator-field='${field}'][role='columnheader'] div.tabulator-col-content`).click();
+    await browser.pause(500);
     await verifyArrow(field);
     await verifySorting (field);
   });
 })
-});
+})
