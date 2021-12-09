@@ -42,18 +42,16 @@ describe("Buy currency", function () {
     await inputSum.addValue("4");
     await WaitForWriteInDatabase("4", 3);
 
-  // const obj = JSON()
-
     await $("//button[text()='Buy']").click();
     const sum = await inputSum.getValue();
     expectedAmount = Number(sum) * Number(currencyRate);
 
     const resultElement = await $("#withdrew");
     await expect(resultElement).toBeDisplayed();
-    const result = await resultElement.getText();
-    
-    const actualAmoutStr = result.slice(result.indexOf(">") + 1).trim();
-    const actualAmout = Number(actualAmoutStr);
-    await expect(expectedAmount).toEqual(actualAmout);
+    const actualAmountStr = await resultElement.getText();
+    const expectedAmountStr = `1234 => ${expectedAmount}`;
+        
+    await expect(expectedAmountStr).toEqual(actualAmountStr);
+
   });
 });
